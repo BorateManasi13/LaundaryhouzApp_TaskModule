@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Laundary Houz</string>
+    <string name="action_settings">settings</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="view_all"><u>View All</u></string>
+
+    <string-array name="payment_options">
+        <item>Cash</item>
+        <item>Cheque/Bank</item>
+        <item>Credit Card/Debit Card</item>
+        <item>Mswipe</item>
+        <item>Paypal</item>
+        <item>PayTM</item>
+        <item>Razor Pay</item>
+        <item>Stripe</item>
+        <item>Telr</item>
+    </string-array>
+</resources>

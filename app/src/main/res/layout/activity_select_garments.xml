@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.SelectGarmentsActivity"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_gravity="bottom">
+
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Continue"
+            android:textColor="@color/white"
+            android:background="@color/yellow_500"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="50dp">
+
+        <TextView
+            android:id="@+id/txtOptionName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="type"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:textSize="16sp"
+            android:layout_gravity="center"
+            android:gravity="right"
+            android:padding="5dp"/>
+
+        <!--<androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:queryHint="Search"
+            app:iconifiedByDefault="false"
+            android:layout_margin="5dp"
+            android:background="@drawable/button_border_grey"/>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selected"
+                android:textSize="18sp"
+                android:textColor="@color/light_grey"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#c0c0c0"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selectedRecycler"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:background="@drawable/button_border_grey"/>
+
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/list_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:groupIndicator="@null"
+            android:dividerHeight="5dp"
+            android:layout_margin="5dp"/>
+
+    </LinearLayout>
+
+    <!-- <ExpandableListView
+         android:id="@+id/list_brands"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:divider="@null"
+         android:groupIndicator="@null"
+         android:dividerHeight="5dp" />-->
+
+</FrameLayout>

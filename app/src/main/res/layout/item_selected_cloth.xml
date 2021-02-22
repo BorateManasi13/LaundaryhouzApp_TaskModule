@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:background="?android:selectableItemBackground"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/clotheimg"
+                android:layout_width="100dp"
+                android:adjustViewBounds="true"
+                android:layout_height="120dp"
+                android:src="@drawable/android"/>
+
+            <TextView
+                android:id="@+id/txt_quantity"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@color/tintgrey"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:text="1"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:layout_marginLeft="100dp"/>
+
+            <ImageView
+                android:id="@+id/imgMinus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_minus_white"
+                android:background="@color/tintgrey"
+                android:layout_gravity="bottom"
+                android:layout_below="@+id/clotheimg"/>
+
+            <ImageView
+                android:id="@+id/imgAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_white"
+                android:background="@color/tintgrey"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="100dp"
+                android:layout_below="@+id/clotheimg" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

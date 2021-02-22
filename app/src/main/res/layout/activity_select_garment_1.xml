@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:id="@+id/txtWeightTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weight (Kg) "
+            android:textColor="@color/black"
+            android:textSize="17sp"/>
+
+        <EditText
+            android:id="@+id/edtClotheWeight"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textSize="17sp"
+            android:textColor="@color/black"
+            android:padding="5dp"
+            android:background="@drawable/button_border_grey"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Top Up Service"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <CheckBox
+            android:id="@+id/chkAlteration"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Alteration ( INR 100 )" />
+
+        <CheckBox
+            android:id="@+id/chkSoftener"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Softener ( INR 20 )" />
+
+        <CheckBox
+            android:id="@+id/chkFreshener"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Freshener ( INR 15 )" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@color/light_grey">
+
+        <TextView
+            android:id="@+id/txtTotalSelected"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Garment Selected"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_gravity="bottom">
+
+            <Button
+                android:id="@+id/btnConti"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Continue"
+                android:textColor="@color/white"
+                android:background="@color/green"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:text="Cancel"
+                android:textColor="@color/white"
+                android:background="@color/red"
+                android:textSize="15sp"
+                android:layout_toRightOf="@+id/btnConti"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="yellow_200">#FFF590</color>
+    <color name="yellow_500">#FFEB3B</color>
+    <color name="yellow_700">#FBC02D</color>
+
+    <color name="yellow_A200">#FFFF00</color>
+    <color name="yellow_A700">#FFD600</color>
+
+    <color name="black">#000</color>
+    <color name="white">#ffffff</color>
+    <color name="light_grey">#c0c0c0</color>
+    <color name="dark_grey">#555</color>
+    <color name="grey">#e9ecef</color>
+    <color name="tintgrey">#B3403f3f</color>
+
+    <color name="green">#4caf50</color>
+    <color name="red">#e53935</color>
+    <color name="blue">#0099cc</color>
+</resources>

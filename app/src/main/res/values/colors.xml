@@ -13,6 +13,7 @@
     <color name="dark_grey">#555</color>
     <color name="grey">#e9ecef</color>
     <color name="tintgrey">#B3403f3f</color>
+    <color name="tintwhite">#B3FFFFFF</color>
 
     <color name="green">#4caf50</color>
     <color name="red">#e53935</color>

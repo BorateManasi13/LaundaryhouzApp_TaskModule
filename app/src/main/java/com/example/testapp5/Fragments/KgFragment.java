@@ -1,7 +1,9 @@
 package com.example.testapp5.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.testapp5.Activity.SelectGarmentsActivity;
+import com.example.testapp5.Activity.SelectKgGarmentsActivity;
 import com.example.testapp5.Adapters.KgButtonAdapter;
 import com.example.testapp5.Model.ExtraProduct;
 import com.example.testapp5.Model.KgButton;
@@ -47,7 +49,11 @@ public class KgFragment extends Fragment implements View.OnClickListener
     ProgressDialog progressDialog;
     String name = "", charges = "", chargeid = "", short_name = "",status="",message="";
     Button btnSelectGarments;
-    String ProductPrice = "", ProductName = "";
+    String ProductPrice = "", ProductName = "",order_id = "";
+
+    public static final String MyPREFERENCES = "MyPrefs";
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
 
     @Nullable
     @Override
@@ -55,15 +61,23 @@ public class KgFragment extends Fragment implements View.OnClickListener
     {
         View view = inflater.inflate(R.layout.fragment_kg, container, false);
 
+        sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
+        order_id = sharedpreferences.getString("order_id","");
+        Log.d("TAG","order_id = " + order_id);
+
+        order_id="ORD21488";
+
         /*ProductName = getArguments().getString("ProductName");
         Log.d("TAG","ProductName = " + ProductName);
         ProductPrice = getArguments().getString("ProductPrice");
-        Log.d("TAG","ProductPrice = " + ProductPrice);*/
+        Log.d("TAG","ProductPrice = " + ProductPrice);
 
         ExtraProduct extraProduct = new ExtraProduct();
         extraProduct.setProductName(ProductName);
         extraProduct.setProductPrice(ProductPrice);
-        extraProductArrayList.add(extraProduct);
+        extraProductArrayList.add(extraProduct);*/
 
         btnSelectGarments = view.findViewById(R.id.btnSelectGarments);
         btnSelectGarments.setOnClickListener(this);
@@ -82,7 +96,7 @@ public class KgFragment extends Fragment implements View.OnClickListener
 
     public void getKgData(final String mtoken)
     {
-        Log.d("TAG","url = " + Config.BASE_URL + Config.URL_LOGIN);
+        Log.d("TAG","url = " + Config.BASE_URL + Config.URL_ALL_KG_CHARGES);
         progressDialog = ProgressDialog.show(getActivity(),"Please wait","Loading..");
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.BASE_URL + Config.URL_ALL_KG_CHARGES, new Response.Listener<String>() {
@@ -165,7 +179,9 @@ public class KgFragment extends Fragment implements View.OnClickListener
     {
        if(view.getId() == R.id.btnSelectGarments)
        {
-           Intent i = new Intent(getActivity(), SelectGarmentsActivity.class);
+           Intent i = new Intent(getActivity(), SelectKgGarmentsActivity.class);
+           editor.putString("order_id",order_id);
+           editor.commit();
            startActivity(i);
        }
     }

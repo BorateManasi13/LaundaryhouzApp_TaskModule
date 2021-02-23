@@ -7,62 +7,142 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/linearKgLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/txtWeightTitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Weight (Kg) "
-            android:textColor="@color/black"
-            android:textSize="17sp"/>
+            android:orientation="vertical"
+            android:layout_margin="10dp">
 
-        <EditText
-            android:id="@+id/edtClotheWeight"
-            android:layout_width="100dp"
+            <TextView
+                android:id="@+id/txtWeightTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Weight (Kg) "
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+            <EditText
+                android:id="@+id/edtClotheWeight"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="17sp"
+                android:textColor="@color/black"
+                android:padding="5dp"
+                android:background="@drawable/button_border_grey"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textSize="17sp"
-            android:textColor="@color/black"
-            android:padding="5dp"
-            android:background="@drawable/button_border_grey"/>
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Top Up Service"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <CheckBox
+                android:id="@+id/chkAlteration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Alteration ( INR 100 )" />
+
+            <CheckBox
+                android:id="@+id/chkSoftener"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Softener ( INR 20 )" />
+
+            <CheckBox
+                android:id="@+id/chkFreshener"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Freshener ( INR 15 )" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearPieceLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone">
 
-        <TextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Top Up Service"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:orientation="vertical"
+            android:layout_margin="10dp">
 
-        <CheckBox
-            android:id="@+id/chkAlteration"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Alteration ( INR 100 )" />
+            <TextView
+                android:id="@+id/txtTotalQty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total Quantity"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"/>
 
-        <CheckBox
-            android:id="@+id/chkSoftener"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Softener ( INR 20 )" />
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="4"
+                android:layout_gravity="start"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:background="@drawable/button_border_grey"/>
 
-        <CheckBox
-            android:id="@+id/chkFreshener"
-            android:layout_width="match_parent"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Freshener ( INR 15 )" />
+            android:orientation="vertical"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:id="@+id/txtPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="260"
+                android:layout_gravity="start"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:background="@drawable/button_border_grey"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

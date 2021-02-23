@@ -1,20 +1,20 @@
 package com.example.testapp5.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,10 +26,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.testapp5.Adapters.CategoryGarmentsAdapter;
+import com.example.testapp5.Adapters.KgCategoryGarmentsAdapter;
+import com.example.testapp5.Adapters.PieceCategoryGarmentsAdapter;
+import com.example.testapp5.Adapters.PieceSelectedClotheAdapter;
 import com.example.testapp5.Adapters.SelectedClotheAdapter;
-import com.example.testapp5.Interface.OnImageClickListener;
-import com.example.testapp5.Interface.OnItemClick;
+import com.example.testapp5.Interface.OnPieceImageClickListener;
+import com.example.testapp5.Interface.OnPieceItemClick;
 import com.example.testapp5.Model.CategoryGarments;
 import com.example.testapp5.Model.ChildGarments;
 import com.example.testapp5.Model.SelectedClothe;
@@ -42,31 +44,36 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import static com.example.testapp5.URL.Config.BASE_URL;
-import static com.example.testapp5.URL.Config.URL_ALL_CLOTH_CATEGORY;
+import static com.example.testapp5.URL.Config.URL_ALL_CLOTH_CATEGORY_KG;
+import static com.example.testapp5.URL.Config.URL_ALL_CLOTH_CATEGORY_PIECE;
 
-public class SelectGarmentsActivity extends AppCompatActivity implements OnImageClickListener, OnItemClick
+public class SelectPieceGarmentsActivity extends AppCompatActivity implements OnPieceImageClickListener, OnPieceItemClick
 {
     private ExpandableListView categoryGarmentsListView;
     private ArrayList<CategoryGarments> categoryGarmentsArrayList = new ArrayList<CategoryGarments>();
-    //SearchView searchView;
     ExpandableListAdapter categoryGarmentsAdapter;
 
     ArrayList<SelectedClothe> listSelectedClothe = new ArrayList<>();
     RecyclerView selectedRecycler;
-    SelectedClotheAdapter selectedClotheAdapter;
+    PieceSelectedClotheAdapter selectedClotheAdapter;
 
-    String status="", message="", clothcatiname = "", clothcatiid = "", clothe_name = "", clothe_id = "",clothe_img = "",optionName="";
+    String status="", message="", charges = "", clothe_name = "",
+            clothe_id = "",clothe_img = "",optionName="", tbl_washtype_id = "", chargeid = "",
+            cate_group = "", cate_group_name = "", order_id = "", isCheck = "PieceSelectedActivity";
 
     CategoryGarments categoryGarments;
     ProgressDialog progressDialog;
     List<ChildGarments> childGarmentsList;
-    int calculatedTotalCount;
     Button btnContinue;
     TextView txtOptionName;
+    int calculatedTotalCount;
+
+    public static final String MyPREFERENCES = "MyPrefs";
+    SharedPreferences sharedpreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -74,9 +81,18 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_garments);
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
+        order_id = sharedpreferences.getString("order_id","");
+        Log.d("TAG","order_id = " + order_id);
+
         Intent i = getIntent();
         optionName = i.getStringExtra("name");
         Log.d("TAG","name = " + optionName);
+
+        tbl_washtype_id = i.getStringExtra("tbl_washtype_id");
+        Log.d("TAG","tbl_washtype_id = " + tbl_washtype_id);
 
         btnContinue = findViewById(R.id.btnContinue);
         categoryGarmentsListView = (ExpandableListView) findViewById(R.id.list_category);
@@ -84,14 +100,14 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
         txtOptionName = findViewById(R.id.txtOptionName);
         txtOptionName.setText(optionName);
 
-        selectedRecycler = findViewById(R.id.selectedRecycler);
+        selectedRecycler = (RecyclerView) findViewById(R.id.selectedRecycler);
         selectedRecycler.setHasFixedSize(true);
         selectedRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         listSelectedClothe=new ArrayList<>();
-        selectedClotheAdapter=new SelectedClotheAdapter(listSelectedClothe,this,SelectGarmentsActivity.this::onClick);
+        selectedClotheAdapter=new PieceSelectedClotheAdapter(listSelectedClothe,this, SelectPieceGarmentsActivity.this::onClick);
 
         //set data to expandable listview from volley
-        GetAllCatiData();
+        GetAllPieceCatiData();
 
         categoryGarmentsListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             int previousGroup = -1;
@@ -114,6 +130,10 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
                     Intent i = new Intent(getApplicationContext(),GarmentSelectionTypeActivity.class);
                     Log.d("TAG", "totalcount = " + calculatedTotalCount);
                     i.putExtra("totalcount", calculatedTotalCount);
+                    i.putExtra("isCheck", isCheck);
+                    editor.putString("order_id",order_id);
+                    editor.commit();
+
                     startActivity(i);
                 }
                 //finish();
@@ -121,11 +141,11 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
         });
     }
 
-    public void GetAllCatiData()
+    public void GetAllPieceCatiData()
     {
-        progressDialog = ProgressDialog.show(SelectGarmentsActivity.this,"Please wait","Loading..");
+        progressDialog = ProgressDialog.show(SelectPieceGarmentsActivity.this,"Please wait","Loading..");
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + URL_ALL_CLOTH_CATEGORY, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, BASE_URL + URL_ALL_CLOTH_CATEGORY_PIECE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response)
             {
@@ -146,29 +166,33 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
                         {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                            clothcatiid = jsonObject.getString("clothcatiid");
-                            clothcatiname = jsonObject.getString("clothcatiname");
-                            Log.d("TAG","clothcatiname = " + clothcatiname);
+                            cate_group = jsonObject.getString("cate_group");
+                            cate_group_name = jsonObject.getString("cate_group_name");
+                            Log.d("TAG","cate_group_name = " + cate_group_name);
 
                             childGarmentsList = new ArrayList<ChildGarments>();
                             JSONArray jsonArray1 = jsonObject.getJSONArray("clothes");
                             for (int j = 0 ; j < jsonArray1.length() ; j++)
                             {
                                 JSONObject jsonObject1 = jsonArray1.getJSONObject(j);
+                                chargeid = jsonObject1.getString("chargeid");
                                 clothe_id = jsonObject1.getString("clothe_id");
-                                clothe_name = jsonObject1.getString("clothe_name");
+                                clothe_name = jsonObject1.getString("clothe_name").trim();
                                 clothe_img = jsonObject1.getString("clothe_img");
+                                charges = jsonObject1.getString("charges");
 
-                                Log.d("TAG","clothe_name = " + clothe_name);
+                                Log.d("TAG","charges = " + charges);
 
-                                ChildGarments mobile = new ChildGarments();
-                                mobile.setClothe_id(jsonObject1.getString("clothe_id"));
-                                mobile.setClothe_name(jsonObject1.getString("clothe_name").trim());
-                                mobile.setClothe_img(jsonObject1.getString("clothe_img"));
+                                ChildGarments childGarments = new ChildGarments();
+                                childGarments.setChargeid(chargeid);
+                                childGarments.setClothe_id(clothe_id);
+                                childGarments.setClothe_name(clothe_name);
+                                childGarments.setClothe_img(clothe_img);
+                                childGarments.setCharges(charges);
 
-                                childGarmentsList.add(mobile);
+                                childGarmentsList.add(childGarments);
                             }
-                            categoryGarments = new CategoryGarments(clothcatiname, childGarmentsList);
+                            categoryGarments = new CategoryGarments(cate_group_name, childGarmentsList);
                             categoryGarmentsArrayList.add(categoryGarments);
                         }
                     }
@@ -176,7 +200,7 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
                     {
                         Toast.makeText(getApplicationContext(),"not getting data from server, status is 0", Toast.LENGTH_SHORT).show();
                     }
-                    categoryGarmentsAdapter = new CategoryGarmentsAdapter(getApplicationContext(), categoryGarmentsArrayList,SelectGarmentsActivity.this::onImageClick);
+                    categoryGarmentsAdapter = new PieceCategoryGarmentsAdapter(getApplicationContext(), categoryGarmentsArrayList, SelectPieceGarmentsActivity.this::onPieceImageClick);
                     categoryGarmentsListView.setAdapter(categoryGarmentsAdapter);
                 }
                 catch (Exception ex)
@@ -198,6 +222,7 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params = new HashMap<>();
                 params.put("mtoken", Config.mtoken);
+                params.put("tbl_washtype_id",tbl_washtype_id);
                 return params;
 
             }
@@ -214,7 +239,7 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
     }
 
     @Override
-    public void onImageClick(String imageData)
+    public void onPieceImageClick(String imageData)
     {
         // handle image data
         Log.d("TAG","data = " + imageData);
@@ -228,19 +253,13 @@ public class SelectGarmentsActivity extends AppCompatActivity implements OnImage
 
         selectedRecycler.setAdapter(selectedClotheAdapter);
         selectedClotheAdapter.notifyDataSetChanged();
-
-        //Toast.makeText(getApplicationContext(),"Clicked ..",Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public void onClick(String totalcount)
     {
-        //increment and decrement value from text
         Log.d("TAG","totalcount = " + totalcount);
-        //Log.d("TAG","listSelectedClothe.size() = " + listSelectedClothe.size());
-
-        /*calculatedTotalCount = listSelectedClothe.size() + Integer.parseInt(totalcount);
-        Log.d("TAG","calculatedTotalCount = " + calculatedTotalCount);*/
 
         calculatedTotalCount = Integer.parseInt(totalcount);
         Log.d("TAG","calculatedTotalCount = " + calculatedTotalCount);

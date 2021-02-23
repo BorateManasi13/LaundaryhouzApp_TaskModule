@@ -1,6 +1,7 @@
 package com.example.testapp5.Fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -9,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.testapp5.Activity.SelectGarmentsActivity;
-import com.example.testapp5.Adapters.KgButtonAdapter;
+import com.example.testapp5.Activity.SelectKgGarmentsActivity;
 import com.example.testapp5.Adapters.PieceButtonAdapter;
 import com.example.testapp5.Model.PieceButtons;
 import com.example.testapp5.R;
@@ -52,13 +51,21 @@ public class PieceFragment extends Fragment implements View.OnClickListener
     SharedPreferences.Editor editor;
 
     ProgressDialog progressDialog;
-    String name = "", tbl_washtype_id = "", short_name = "",status="",message="";
+    String name = "", tbl_washtype_id = "", short_name = "",status="",message="", order_id = "";
     Button btnSelectGarments;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_piece, container, false);
+
+        sharedpreferences = getActivity().getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+        editor = sharedpreferences.edit();
+
+        order_id = sharedpreferences.getString("order_id","");
+        Log.d("TAG","order_id = " + order_id);
+
+        order_id="ORD21488";
 
         btnSelectGarments = view.findViewById(R.id.btnSelectGarments);
         btnSelectGarments.setOnClickListener(this);
@@ -108,6 +115,8 @@ public class PieceFragment extends Fragment implements View.OnClickListener
 
                         PieceButtons pieceButtons = new PieceButtons();
                         pieceButtons.setName(name);
+                        pieceButtons.setTbl_washtype_id(tbl_washtype_id);
+                        pieceButtons.setShort_name(short_name);
 
                         pieceButtonsArrayList.add(pieceButtons);
                     }
@@ -156,8 +165,8 @@ public class PieceFragment extends Fragment implements View.OnClickListener
     {
         if(view.getId() == R.id.btnSelectGarments)
         {
-            Intent i = new Intent(getActivity(), SelectGarmentsActivity.class);
-            startActivity(i);
+           /* Intent i = new Intent(getActivity(), SelectKgGarmentsActivity.class);
+            startActivity(i);*/
         }
     }
 }

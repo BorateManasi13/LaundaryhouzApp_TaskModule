@@ -4,6 +4,7 @@ public class SelectedClothe
 {
     String clotheImg;
     String quantity;
+    String charges;
 
     public String getQuantity() {
         return quantity;
@@ -19,5 +20,13 @@ public class SelectedClothe
 
     public void setClotheImg(String clotheImg) {
         this.clotheImg = clotheImg;
+    }
+
+    public String getCharges() {
+        return charges;
+    }
+
+    public void setCharges(String charges) {
+        this.charges = charges;
     }
 }

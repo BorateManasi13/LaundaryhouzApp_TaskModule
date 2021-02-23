@@ -19,13 +19,13 @@ import com.example.testapp5.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryGarmentsAdapter extends BaseExpandableListAdapter
+public class KgCategoryGarmentsAdapter extends BaseExpandableListAdapter
 {
     private Context context;
     private List<CategoryGarments> categoryGarments = new ArrayList<>();
     private OnImageClickListener onImageClickListener;
 
-    public CategoryGarmentsAdapter(Context context, List<CategoryGarments> categoryGarments, OnImageClickListener onImageClickListener) {
+    public KgCategoryGarmentsAdapter(Context context, List<CategoryGarments> categoryGarments, OnImageClickListener onImageClickListener) {
         this.context = context;
         this.categoryGarments = categoryGarments;
         this.onImageClickListener = onImageClickListener;
@@ -83,7 +83,8 @@ public class CategoryGarmentsAdapter extends BaseExpandableListAdapter
 
         CategoryGarments brand = (CategoryGarments) getGroup(groupPosition);
 
-        if(convertView == null) {
+        if(convertView == null)
+        {
             LayoutInflater userInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             convertView = userInflater.inflate(R.layout.item_category_parent, null);
             convertView.setHorizontalScrollBarEnabled(true);
@@ -127,8 +128,8 @@ public class CategoryGarmentsAdapter extends BaseExpandableListAdapter
         LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
         childHolder.horizontalListView.setLayoutManager(layoutManager);
 
-        ChildGarmentsAdapter childGarmentsAdapter = new ChildGarmentsAdapter(context, categoryGarments.get(groupPosition).childGarmentsList,onImageClickListener);
-        childHolder.horizontalListView.setAdapter(childGarmentsAdapter);
+        KgChildGarmentsAdapter kgChildGarmentsAdapter = new KgChildGarmentsAdapter(context, categoryGarments.get(groupPosition).childGarmentsList,onImageClickListener);
+        childHolder.horizontalListView.setAdapter(kgChildGarmentsAdapter);
 
         return convertView;
     }

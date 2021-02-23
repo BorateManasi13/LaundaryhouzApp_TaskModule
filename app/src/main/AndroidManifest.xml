@@ -22,12 +22,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.SelectGarmentsActivity"
+        <activity android:name=".Activity.SelectKgGarmentsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activity.SelectPieceGarmentsActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Activity.GarmentSelectionTypeActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".Activity.CartActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Activity.ViewAllActivity"/>
     </application>
 
 </manifest>

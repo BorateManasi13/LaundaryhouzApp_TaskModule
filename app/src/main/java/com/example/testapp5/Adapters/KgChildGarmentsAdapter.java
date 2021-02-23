@@ -12,20 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.testapp5.Interface.OnImageClickListener;
-import com.example.testapp5.Model.CategoryGarments;
 import com.example.testapp5.Model.ChildGarments;
 import com.example.testapp5.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChildGarmentsAdapter extends RecyclerView.Adapter<ChildGarmentsAdapter.ViewHolder>
+public class KgChildGarmentsAdapter extends RecyclerView.Adapter<KgChildGarmentsAdapter.ViewHolder>
 {
     private Context context;
     private List<ChildGarments> childGarmentsList = new ArrayList<ChildGarments>();
     private OnImageClickListener onImageClickListener;
 
-    public ChildGarmentsAdapter(Context context, List<ChildGarments> childGarmentsList, OnImageClickListener onImageClickListener) {
+    public KgChildGarmentsAdapter(Context context, List<ChildGarments> childGarmentsList, OnImageClickListener onImageClickListener) {
         this.context = context;
         this.childGarmentsList = childGarmentsList;
         this.onImageClickListener = onImageClickListener;
@@ -59,7 +58,7 @@ public class ChildGarmentsAdapter extends RecyclerView.Adapter<ChildGarmentsAdap
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(context,"Clicked on adapter .." + position,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context,"Clicked on adapter .." + position,Toast.LENGTH_SHORT).show();
                 onImageClickListener.onImageClick(imgUrl);
             }
         });

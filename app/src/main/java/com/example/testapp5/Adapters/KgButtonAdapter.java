@@ -10,7 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testapp5.Activity.SelectGarmentsActivity;
+import com.example.testapp5.Activity.SelectKgGarmentsActivity;
 import com.example.testapp5.Model.KgButton;
 import com.example.testapp5.R;
 
@@ -43,7 +43,7 @@ public class KgButtonAdapter extends RecyclerView.Adapter<KgButtonAdapter.ViewHo
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(context, SelectGarmentsActivity.class);
+                Intent intent = new Intent(context, SelectKgGarmentsActivity.class);
                 intent.putExtra("name", kgButton.getName());
                 context.startActivity(intent);
             }

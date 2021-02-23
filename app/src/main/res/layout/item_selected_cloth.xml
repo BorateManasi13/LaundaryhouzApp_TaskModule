@@ -37,6 +37,19 @@
                 android:gravity="center"
                 android:layout_marginLeft="100dp"/>
 
+            <TextView
+                android:id="@+id/txtCharges"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="15"
+                android:background="@color/tintwhite"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:layout_below="@id/txt_quantity"
+                android:layout_marginTop="30dp"
+                android:visibility="gone"/>
+
             <ImageView
                 android:id="@+id/imgMinus"
                 android:layout_width="wrap_content"

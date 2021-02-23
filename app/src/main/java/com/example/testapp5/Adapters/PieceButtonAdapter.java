@@ -10,8 +10,8 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.testapp5.Activity.SelectGarmentsActivity;
-import com.example.testapp5.Model.KgButton;
+import com.example.testapp5.Activity.SelectKgGarmentsActivity;
+import com.example.testapp5.Activity.SelectPieceGarmentsActivity;
 import com.example.testapp5.Model.PieceButtons;
 import com.example.testapp5.R;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class PieceButtonAdapter extends RecyclerView.Adapter<PieceButtonAdapter.ViewHolder>
 {
     List<PieceButtons> pieceButtonsList;
-    private Context context;
+    Context context;
 
     public PieceButtonAdapter(List<PieceButtons> pieceButtonsList, Context context) {
         this.pieceButtonsList = pieceButtonsList;
@@ -44,8 +44,9 @@ public class PieceButtonAdapter extends RecyclerView.Adapter<PieceButtonAdapter.
             @Override
             public void onClick(View view)
             {
-                Intent intent = new Intent(context, SelectGarmentsActivity.class);
+                Intent intent = new Intent(context, SelectPieceGarmentsActivity.class);
                 intent.putExtra("name", pieceButtons.getName());
+                intent.putExtra("tbl_washtype_id",pieceButtons.getTbl_washtype_id());
                 context.startActivity(intent);
             }
         });

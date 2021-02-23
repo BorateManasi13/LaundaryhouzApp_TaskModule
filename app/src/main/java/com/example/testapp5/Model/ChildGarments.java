@@ -5,6 +5,8 @@ public class ChildGarments
     public String clothe_id;
     public String clothe_name;
     public String clothe_img;
+    public String charges;
+    public String chargeid;
 
     public String getClothe_id() {
         return clothe_id;
@@ -28,5 +30,21 @@ public class ChildGarments
 
     public void setClothe_img(String clothe_img) {
         this.clothe_img = clothe_img;
+    }
+
+    public String getCharges() {
+        return charges;
+    }
+
+    public void setCharges(String charges) {
+        this.charges = charges;
+    }
+
+    public String getChargeid() {
+        return chargeid;
+    }
+
+    public void setChargeid(String chargeid) {
+        this.chargeid = chargeid;
     }
 }

@@ -100,6 +100,7 @@
                 android:gravity="center"/>
 
             <EditText
+                android:id="@+id/edtTotalQuantity"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:text="4"
@@ -131,6 +132,7 @@
                 android:layout_gravity="center"/>
 
             <EditText
+                android:id="@+id/edtTotalPrice"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:text="260"

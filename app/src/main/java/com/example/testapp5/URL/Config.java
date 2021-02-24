@@ -3,7 +3,7 @@ package com.example.testapp5.URL;
 public class Config
 {
     public static final String BASE_URL = "https://demo3.sjainventures.com/laundaryhouz/";
-    public static final String mtoken = "MTo1MDkxNjgzN2VkYmVlMWRjZmNhYmFmM2I5ZmU0M2QyNQ==";
+    public static final String mtoken = "MTpkMjdmZWI2OTk5NDAxMjAzMmEyZmM1N2IzODViYmM1Yw==";
 
     public static final String URL_LOGIN = "mobile/DeliveryBoy/login";
     public static final String URL_FORGOT_PASSWORD = "https://demo3.sjainventures.com/laundaryhouz/webservice_delivery/forgot";

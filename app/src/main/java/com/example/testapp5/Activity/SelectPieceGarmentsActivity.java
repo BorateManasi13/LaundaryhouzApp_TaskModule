@@ -69,11 +69,12 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
     List<ChildGarments> childGarmentsList;
     Button btnContinue;
     TextView txtOptionName;
-    int calculatedTotalCount;
+    int calculatedTotalQty, calculatedTotalPrice;
 
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
+    String TAG = "SelectPieceGarmentsActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -85,14 +86,14 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
         editor = sharedpreferences.edit();
 
         order_id = sharedpreferences.getString("order_id","");
-        Log.d("TAG","order_id = " + order_id);
+        Log.d(TAG,"order_id = " + order_id);
 
         Intent i = getIntent();
         optionName = i.getStringExtra("name");
-        Log.d("TAG","name = " + optionName);
+        Log.d(TAG,"name = " + optionName);
 
         tbl_washtype_id = i.getStringExtra("tbl_washtype_id");
-        Log.d("TAG","tbl_washtype_id = " + tbl_washtype_id);
+        Log.d(TAG,"tbl_washtype_id = " + tbl_washtype_id);
 
         btnContinue = findViewById(R.id.btnContinue);
         categoryGarmentsListView = (ExpandableListView) findViewById(R.id.list_category);
@@ -128,9 +129,11 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
                 if(listSelectedClothe.size() != 0)
                 {
                     Intent i = new Intent(getApplicationContext(),GarmentSelectionTypeActivity.class);
-                    Log.d("TAG", "totalcount = " + calculatedTotalCount);
-                    i.putExtra("totalcount", calculatedTotalCount);
+                    Log.d(TAG, "calculatedTotalQty = " + calculatedTotalQty);
+                    i.putExtra("calculatedTotalQty", calculatedTotalQty);
                     i.putExtra("isCheck", isCheck);
+                    //i.putExtra("calculatedTotalPrice",calculatedTotalPrice);
+
                     editor.putString("order_id",order_id);
                     editor.commit();
 
@@ -149,7 +152,7 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
             @Override
             public void onResponse(String response)
             {
-                Log.d("TAG", "response = " + response);
+                Log.d(TAG, "response = " + response);
                 progressDialog.dismiss();
 
                 try
@@ -161,14 +164,14 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
                     if(status.equals("1"))
                     {
                         JSONArray jsonArray = object.getJSONArray("data");
-                        Log.d("TAG","length = " + jsonArray.length());
+                        Log.d(TAG,"length = " + jsonArray.length());
                         for (int i = 0 ; i < jsonArray.length() ; i++)
                         {
                             JSONObject jsonObject = jsonArray.getJSONObject(i);
 
                             cate_group = jsonObject.getString("cate_group");
                             cate_group_name = jsonObject.getString("cate_group_name");
-                            Log.d("TAG","cate_group_name = " + cate_group_name);
+                            Log.d(TAG,"cate_group_name = " + cate_group_name);
 
                             childGarmentsList = new ArrayList<ChildGarments>();
                             JSONArray jsonArray1 = jsonObject.getJSONArray("clothes");
@@ -181,7 +184,7 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
                                 clothe_img = jsonObject1.getString("clothe_img");
                                 charges = jsonObject1.getString("charges");
 
-                                Log.d("TAG","charges = " + charges);
+                                //Log.d(TAG,"charges = " + charges);
 
                                 ChildGarments childGarments = new ChildGarments();
                                 childGarments.setChargeid(chargeid);
@@ -214,7 +217,7 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
                     @Override
                     public void onErrorResponse(VolleyError error)
                     {
-                        Log.d("TAG","error = " + error);
+                        Log.d(TAG,"error = " + error);
                     }
                 })
         {
@@ -235,19 +238,21 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         requestQueue.add(stringRequest);
-        stringRequest.setTag("TAG");
+        stringRequest.setTag(TAG);
     }
 
     @Override
-    public void onPieceImageClick(String imageData)
+    public void onPieceImageClick(String imageData, String charges)
     {
         // handle image data
-        Log.d("TAG","data = " + imageData);
+        Log.d(TAG,"data = " + imageData);
+        Log.d(TAG,"on click charges = " + charges);
 
         if(!imageData.equals(""))
         {
             SelectedClothe selectedClothe = new SelectedClothe();
             selectedClothe.setClotheImg(imageData);
+            selectedClothe.setCharges(charges);
             listSelectedClothe.add(selectedClothe);
         }
 
@@ -257,11 +262,15 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
 
 
     @Override
-    public void onClick(String totalcount)
+    public void onClick(String totalqty, String totalprice)
     {
-        Log.d("TAG","totalcount = " + totalcount);
+        Log.d(TAG,"totalqty = " + totalqty);
+        Log.d(TAG,"totalcalculatedprice = " + totalprice);
 
-        calculatedTotalCount = Integer.parseInt(totalcount);
-        Log.d("TAG","calculatedTotalCount = " + calculatedTotalCount);
+        calculatedTotalQty = Integer.parseInt(totalqty);
+        Log.d(TAG,"calculatedTotalQty = " + calculatedTotalQty);
+
+        //calculatedTotalPrice = Integer.parseInt(totalcalculatedprice);
+        //Log.d(TAG,"calculatedTotalPrice = " + calculatedTotalPrice);
     }
 }

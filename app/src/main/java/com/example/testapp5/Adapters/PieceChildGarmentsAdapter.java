@@ -57,12 +57,14 @@ public class PieceChildGarmentsAdapter extends RecyclerView.Adapter<PieceChildGa
                 .load(imgUrl)
                 .into(holder.clotheimg);
 
+        String charges = childGarmentsList.get(position).getCharges();
+
         holder.clotheimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 //Toast.makeText(context,"Clicked on adapter .." + position,Toast.LENGTH_SHORT).show();
-                onImageClickListener.onPieceImageClick(imgUrl);
+                onImageClickListener.onPieceImageClick(imgUrl,charges);
             }
         });
     }

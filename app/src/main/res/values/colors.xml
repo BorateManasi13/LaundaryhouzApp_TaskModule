@@ -12,8 +12,10 @@
     <color name="light_grey">#c0c0c0</color>
     <color name="dark_grey">#555</color>
     <color name="grey">#e9ecef</color>
+    <color name="grey1">#979797</color>
     <color name="tintgrey">#B3403f3f</color>
     <color name="tintwhite">#B3FFFFFF</color>
+    <color name="tintlightgrey">#B3C0C0C0</color>
 
     <color name="green">#4caf50</color>
     <color name="red">#e53935</color>

@@ -21,16 +21,16 @@ import com.example.testapp5.R;
 public class GarmentSelectionTypeActivity extends AppCompatActivity
 {
     Button btnCancel,btnConti;
-    EditText edtClotheWeight;
+    EditText edtClotheWeight,edtTotalPrice,edtTotalQuantity;
     TextView txtTotalSelected;
     CheckBox chkAlteration,chkSoftener,chkFreshener;
-    int total_count;
+    int totalPrice,totalQty;
 
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
 
-    String order_id = "", isCheck = "";
+    String order_id = "", isCheck = "", TAG = "GarmentSelectionTypeActivity";
 
     LinearLayout linearPieceLayout,linearKgLayout;
 
@@ -43,7 +43,16 @@ public class GarmentSelectionTypeActivity extends AppCompatActivity
         editor = sharedpreferences.edit();
 
         order_id = sharedpreferences.getString("order_id","");
-        Log.d("TAG","order_id = " + order_id);
+        Log.d(TAG,"order_id = " + order_id);
+
+        totalQty = getIntent().getIntExtra("calculatedTotalQty",0);
+        Log.d(TAG,"totalQty = " + totalQty);
+
+        totalPrice = getIntent().getIntExtra("calculatedTotalPrice",0);
+        Log.d(TAG,"totalPrice = " + totalPrice);
+
+        isCheck = getIntent().getStringExtra("isCheck");
+        Log.d(TAG,"isCheck = " + isCheck);
 
         btnCancel = findViewById(R.id.btnCancel);
         btnConti = findViewById(R.id.btnConti);
@@ -52,26 +61,29 @@ public class GarmentSelectionTypeActivity extends AppCompatActivity
         edtClotheWeight = findViewById(R.id.edtClotheWeight);
         edtClotheWeight.setSelection(edtClotheWeight.getText().length());
 
-        total_count = getIntent().getIntExtra("totalcount",0);
-        Log.d("TAG","count = " + total_count);
-        txtTotalSelected.setText("" + total_count);
-
-        isCheck = getIntent().getStringExtra("isCheck");
-        Log.d("TAG","isCheck = " + isCheck);
+        edtTotalPrice = findViewById(R.id.edtTotalPrice);
+        edtTotalQuantity = findViewById(R.id.edtTotalQuantity);
 
         linearKgLayout = findViewById(R.id.linearKgLayout);
         linearPieceLayout = findViewById(R.id.linearPieceLayout);
 
-        if(isCheck.equals("PieceSelectedActivity"))
+        txtTotalSelected.setText("" + totalQty);
+
+        /*if(isCheck.equals("PieceSelectedActivity"))
         {
             linearKgLayout.setVisibility(View.GONE);
             linearPieceLayout.setVisibility(View.VISIBLE);
+
+            edtTotalQuantity.setText(totalQty);
+            edtTotalPrice.setText(totalPrice);
         }
         else
         {
             linearPieceLayout.setVisibility(View.GONE);
             linearKgLayout.setVisibility(View.VISIBLE);
-        }
+
+            txtTotalSelected.setText("" + totalQty);
+        }*/
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

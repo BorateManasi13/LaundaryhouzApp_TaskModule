@@ -65,7 +65,7 @@ public class SelectKgGarmentsActivity extends AppCompatActivity implements OnIma
     CategoryGarments categoryGarments;
     ProgressDialog progressDialog;
     List<ChildGarments> childGarmentsList;
-    int calculatedTotalCount;
+    int calculatedTotalQty;
     Button btnContinue;
     TextView txtOptionName;
 
@@ -123,8 +123,8 @@ public class SelectKgGarmentsActivity extends AppCompatActivity implements OnIma
                 if(listSelectedClothe.size() != 0)
                 {
                     Intent i = new Intent(getApplicationContext(),GarmentSelectionTypeActivity.class);
-                    Log.d(TAG, "totalcount = " + calculatedTotalCount);
-                    i.putExtra("totalcount", calculatedTotalCount);
+                    Log.d(TAG, "calculatedTotalQty = " + calculatedTotalQty);
+                    i.putExtra("calculatedTotalQty", calculatedTotalQty);
 
                     editor.putString("order_id",order_id);
                     editor.commit();
@@ -252,12 +252,8 @@ public class SelectKgGarmentsActivity extends AppCompatActivity implements OnIma
     {
         //increment and decrement value from text
         Log.d("TAG","totalcount = " + totalcount);
-        //Log.d("TAG","listSelectedClothe.size() = " + listSelectedClothe.size());
 
-        /*calculatedTotalCount = listSelectedClothe.size() + Integer.parseInt(totalcount);
-        Log.d("TAG","calculatedTotalCount = " + calculatedTotalCount);*/
-
-        calculatedTotalCount = Integer.parseInt(totalcount);
-        Log.d("TAG","calculatedTotalCount = " + calculatedTotalCount);
+        calculatedTotalQty = Integer.parseInt(totalcount);
+        Log.d("TAG","calculatedTotalCount = " + calculatedTotalQty);
     }
 }

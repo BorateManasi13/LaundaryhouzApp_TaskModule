@@ -8,6 +8,7 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
@@ -18,12 +19,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.testapp5.Adapters.KgViewAllDataAdapter;
+import com.example.testapp5.Model.KgViewAllData;
 import com.example.testapp5.R;
 import com.example.testapp5.URL.Config;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,13 +37,17 @@ public class ViewAllActivity extends AppCompatActivity
     RecyclerView showCountRecycler,selectedKgRecycler,selectedPieceRecycler,selectedExtraRecycler;
     ProgressDialog progressDialog;
 
+    KgViewAllDataAdapter kgViewAllDataAdapter;
+    ArrayList<KgViewAllData> kgViewAllDataList;
+
     String TAG = "ViewAllActivity";
 
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
     SharedPreferences.Editor editor;
 
-    String mtoken = "", order_id = "", message = "", status = "", qty = "";
+    String mtoken = "", order_id = "", message = "", status = "", qty = "", washtypeid = "",
+            clothe_name = "", img_url = "", wash_type = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -49,17 +58,19 @@ public class ViewAllActivity extends AppCompatActivity
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         editor = sharedpreferences.edit();
 
-        //mtoken = Config.mtoken;
-
         order_id = sharedpreferences.getString("order_id","");
         Log.d("TAG","order_id = " + order_id);
 
         ViewAllData(Config.mtoken,order_id);
 
-        showCountRecycler = findViewById(R.id.showCountRecycler);
+        //showCountRecycler = findViewById(R.id.showCountRecycler);
         selectedKgRecycler = findViewById(R.id.selectedKgRecycler);
         selectedExtraRecycler = findViewById(R.id.selectedExtraRecycler);
         selectedPieceRecycler = findViewById(R.id.selectedPieceRecycler);
+
+        selectedKgRecycler.setHasFixedSize(true);
+        selectedKgRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        kgViewAllDataList=new ArrayList<>();
     }
 
     public void ViewAllData(String mtoken, String order_id)
@@ -80,7 +91,7 @@ public class ViewAllActivity extends AppCompatActivity
                     status = jsonObject.getString("status");
                     message = jsonObject.getString("message");
 
-                    /*JSONObject objectData = new JSONObject("data");
+                    JSONObject objectData = jsonObject.getJSONObject("data");
                     for (int i = 0; i < objectData.length() ; i++)
                     {
                         JSONArray jsonArray = objectData.getJSONArray("kg_data");
@@ -88,11 +99,25 @@ public class ViewAllActivity extends AppCompatActivity
                         {
                             JSONObject kgObject = jsonArray.getJSONObject(i1);
                             qty = kgObject.getString("qty");
-                            Log.d(TAG,"qty = " + qty);
+                            clothe_name = kgObject.getString("clothe_name");
+                            img_url = kgObject.getString("img_url");
+                            wash_type = kgObject.getString("wash_type");
+                            washtypeid = kgObject.getString("washtypeid");
+
+                            KgViewAllData kgViewAllData = new KgViewAllData();
+                            kgViewAllData.setClothe_name(clothe_name);
+                            kgViewAllData.setQty(qty);
+                            kgViewAllData.setWashtypeid(washtypeid);
+                            kgViewAllData.setImg_url(img_url);
+                            kgViewAllData.setWash_type(wash_type);
+
+                            kgViewAllDataList.add(kgViewAllData);
                         }
-                    }*/
+                    }
+                    kgViewAllDataAdapter = new KgViewAllDataAdapter(kgViewAllDataList,ViewAllActivity.this);
+                    selectedKgRecycler.setAdapter(kgViewAllDataAdapter);
                 }
-                catch (Exception ex)
+                catch (JSONException ex)
                 {
                     ex.printStackTrace();
                 }

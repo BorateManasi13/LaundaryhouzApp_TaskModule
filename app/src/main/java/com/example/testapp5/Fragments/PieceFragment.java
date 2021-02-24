@@ -82,7 +82,7 @@ public class PieceFragment extends Fragment implements View.OnClickListener
 
     public void getPieceData(final String mtoken)
     {
-        Log.d(TAG,"url = " + Config.BASE_URL + Config.URL_LOGIN);
+        Log.d(TAG,"url = " + Config.BASE_URL + Config.URL_ALL_PIECE_CHARGES);
         progressDialog = ProgressDialog.show(getActivity(),"Please wait","Loading..");
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, Config.BASE_URL + Config.URL_ALL_PIECE_CHARGES, new Response.Listener<String>() {

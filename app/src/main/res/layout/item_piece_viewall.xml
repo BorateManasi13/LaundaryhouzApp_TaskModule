@@ -31,16 +31,37 @@
                 android:layout_gravity="center"
                 android:gravity="center"/>
 
-            <TextView
-                android:id="@+id/txtQty"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:textColor="@color/red"
-                android:textSize="15sp"
-                android:text="(Qty:1)"
-                android:textStyle="normal"
-                android:layout_gravity="center"
-                android:gravity="center" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:id="@+id/txtQty"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:textColor="@color/red"
+                    android:textSize="15sp"
+                    android:text="(Qty:1)"
+                    android:textStyle="normal"
+                    android:layout_gravity="center"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/txtQtyPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"
+                    android:textColor="@color/green"
+                    android:textSize="15sp"
+                    android:text="(₹40)"
+                    android:textStyle="normal"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/imgUrl"

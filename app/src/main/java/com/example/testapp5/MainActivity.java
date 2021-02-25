@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item)
+    {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_pickup)
         {
-           // mTitle = "Pickup & Deliveries";
+           //mTitle = "Pickup & Deliveries";
             fragment = new PickupDeliveriesFragment();
         } else if (id == R.id.nav_newbooking)
         {
@@ -89,14 +90,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
 
-        fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.frameLayout, fragment,"tagFragment").commit();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);

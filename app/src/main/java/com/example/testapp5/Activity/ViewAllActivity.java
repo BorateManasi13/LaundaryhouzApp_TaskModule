@@ -5,6 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,8 +24,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.testapp5.Adapters.ExtraViewAllDataAdapter;
 import com.example.testapp5.Adapters.KgViewAllDataAdapter;
+import com.example.testapp5.Adapters.PieceViewAllDataAdapter;
+import com.example.testapp5.Model.ExtraViewAllData;
 import com.example.testapp5.Model.KgViewAllData;
+import com.example.testapp5.Model.PieceViewAllData;
 import com.example.testapp5.R;
 import com.example.testapp5.URL.Config;
 
@@ -40,7 +49,16 @@ public class ViewAllActivity extends AppCompatActivity
     KgViewAllDataAdapter kgViewAllDataAdapter;
     ArrayList<KgViewAllData> kgViewAllDataList;
 
+    PieceViewAllDataAdapter pieceViewAllDataAdapter;
+    ArrayList<PieceViewAllData> pieceViewAllDataList;
+
+    ExtraViewAllDataAdapter extraViewAllDataAdapter;
+    ArrayList<ExtraViewAllData> extraViewAllDataList;
+
     String TAG = "ViewAllActivity";
+
+    LinearLayout linear1,linear2,linear3,linear4;
+    Button btnShowError;
 
     public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
@@ -61,16 +79,34 @@ public class ViewAllActivity extends AppCompatActivity
         order_id = sharedpreferences.getString("order_id","");
         Log.d("TAG","order_id = " + order_id);
 
-        ViewAllData(Config.mtoken,order_id);
+        linear1 = findViewById(R.id.linear1);
+        linear2 = findViewById(R.id.linear2);
+        linear3 = findViewById(R.id.linear3);
+        linear4 = findViewById(R.id.linear4);
+
+        btnShowError = findViewById(R.id.btnShowError);
 
         //showCountRecycler = findViewById(R.id.showCountRecycler);
         selectedKgRecycler = findViewById(R.id.selectedKgRecycler);
         selectedExtraRecycler = findViewById(R.id.selectedExtraRecycler);
         selectedPieceRecycler = findViewById(R.id.selectedPieceRecycler);
 
+        //Kg type view all data recycler adapter
         selectedKgRecycler.setHasFixedSize(true);
         selectedKgRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         kgViewAllDataList=new ArrayList<>();
+
+        //Piece type view all data recycler adapter
+        selectedPieceRecycler.setHasFixedSize(true);
+        selectedPieceRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        pieceViewAllDataList = new ArrayList<>();
+
+        //Extra Product view all data recycler adapter
+        selectedExtraRecycler.setHasFixedSize(true);
+        selectedExtraRecycler.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        extraViewAllDataList = new ArrayList<>();
+
+        ViewAllData(Config.mtoken,order_id);
     }
 
     public void ViewAllData(String mtoken, String order_id)
@@ -91,31 +127,77 @@ public class ViewAllActivity extends AppCompatActivity
                     status = jsonObject.getString("status");
                     message = jsonObject.getString("message");
 
-                    JSONObject objectData = jsonObject.getJSONObject("data");
-                    for (int i = 0; i < objectData.length() ; i++)
+                    if (status.equals("1"))
                     {
-                        JSONArray jsonArray = objectData.getJSONArray("kg_data");
-                        for (int i1 = 0; i1 < jsonArray.length(); i1++)
+                        JSONObject objectData = jsonObject.getJSONObject("data");
+                        for (int i = 0; i < objectData.length() ; i++)
                         {
-                            JSONObject kgObject = jsonArray.getJSONObject(i1);
-                            qty = kgObject.getString("qty");
-                            clothe_name = kgObject.getString("clothe_name");
-                            img_url = kgObject.getString("img_url");
-                            wash_type = kgObject.getString("wash_type");
-                            washtypeid = kgObject.getString("washtypeid");
+                            JSONArray jsonArray = objectData.getJSONArray("kg_data");
+                            for (int i1 = 0; i1 < jsonArray.length(); i1++)
+                            {
+                                JSONObject kgObject = jsonArray.getJSONObject(i1);
+                                qty = kgObject.getString("qty");
+                                clothe_name = kgObject.getString("clothe_name");
+                                img_url = kgObject.getString("img_url");
+                                wash_type = kgObject.getString("wash_type");
+                                washtypeid = kgObject.getString("washtypeid");
 
-                            KgViewAllData kgViewAllData = new KgViewAllData();
-                            kgViewAllData.setClothe_name(clothe_name);
-                            kgViewAllData.setQty(qty);
-                            kgViewAllData.setWashtypeid(washtypeid);
-                            kgViewAllData.setImg_url(img_url);
-                            kgViewAllData.setWash_type(wash_type);
+                                KgViewAllData kgViewAllData = new KgViewAllData();
+                                kgViewAllData.setClothe_name(clothe_name);
+                                kgViewAllData.setQty(qty);
+                                kgViewAllData.setWashtypeid(washtypeid);
+                                kgViewAllData.setImg_url(img_url);
+                                kgViewAllData.setWash_type(wash_type);
 
-                            kgViewAllDataList.add(kgViewAllData);
+                                kgViewAllDataList.add(kgViewAllData);
+                            }
+
+                            JSONArray jsonArray1 = objectData.getJSONArray("piece_data");
+                            for (int i2 = 0; i2 < jsonArray1.length() ; i2++)
+                            {
+                                JSONObject pieceObject = jsonArray1.getJSONObject(i2);
+                                PieceViewAllData pieceViewAllData = new PieceViewAllData();
+                                pieceViewAllData.setQty(pieceObject.getString("qty"));
+                                pieceViewAllData.setRate(pieceObject.getString("rate"));
+                                pieceViewAllData.setClothe_name(pieceObject.getString("clothe_name"));
+                                pieceViewAllData.setImg_url(pieceObject.getString("img_url"));
+                                pieceViewAllData.setWash_type(pieceObject.getString("wash_type"));
+                                pieceViewAllData.setWashtypeid(pieceObject.getString("washtypeid"));
+
+                                pieceViewAllDataList.add(pieceViewAllData);
+                            }
+
+                            JSONArray jsonArray2 = objectData.getJSONArray("extra_prd_data");
+                            for(int i3 = 0 ; i3 < jsonArray2.length() ; i3++)
+                            {
+                                JSONObject extraObject = jsonArray2.getJSONObject(i3);
+                                ExtraViewAllData extraViewAllData = new ExtraViewAllData();
+                                extraViewAllData.setProduct_name(extraObject.getString("product_name"));
+                                extraViewAllData.setPrice(extraObject.getString("price"));
+
+                                extraViewAllDataList.add(extraViewAllData);
+                            }
                         }
+                        kgViewAllDataAdapter = new KgViewAllDataAdapter(kgViewAllDataList,ViewAllActivity.this);
+                        selectedKgRecycler.setAdapter(kgViewAllDataAdapter);
+
+                        pieceViewAllDataAdapter = new PieceViewAllDataAdapter(pieceViewAllDataList,ViewAllActivity.this);
+                        selectedPieceRecycler.setAdapter(pieceViewAllDataAdapter);
+
+                        extraViewAllDataAdapter = new ExtraViewAllDataAdapter(extraViewAllDataList,ViewAllActivity.this);
+                        selectedExtraRecycler.setAdapter(extraViewAllDataAdapter);
                     }
-                    kgViewAllDataAdapter = new KgViewAllDataAdapter(kgViewAllDataList,ViewAllActivity.this);
-                    selectedKgRecycler.setAdapter(kgViewAllDataAdapter);
+                    else
+                    {
+                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+                        linear1.setVisibility(View.VISIBLE);
+                        btnShowError.setText(message);
+
+                        linear2.setVisibility(View.GONE);
+                        linear3.setVisibility(View.GONE);
+                        linear4.setVisibility(View.GONE);
+                    }
                 }
                 catch (JSONException ex)
                 {
@@ -126,6 +208,7 @@ public class ViewAllActivity extends AppCompatActivity
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG,"error = " + error);
+                //progressDialog.dismiss();
             }
         }){
             @Override

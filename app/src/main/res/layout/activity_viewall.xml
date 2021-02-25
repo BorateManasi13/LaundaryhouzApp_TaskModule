@@ -15,26 +15,10 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:id="@+id/linear1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <Button
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:text="All data count"
-                    android:textColor="@color/white"/>
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/linear2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@id/linear1"
                 android:background="@drawable/button_border_grey"
                 android:layout_margin="5dp">
 
@@ -61,7 +45,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@id/linear2">
+                android:layout_below="@id/linear2"
+                android:background="@drawable/button_border_grey"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Garments on Piece Type"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:background="@color/grey1"
+                    android:gravity="center"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/selectedPieceRecycler"
@@ -72,11 +68,44 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:layout_alignParentBottom="true"
+                android:visibility="visible">
+
+                <Button
+                    android:id="@+id/btnShowError"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Display Error"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/linear4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_below="@id/linear3">
+                android:layout_below="@id/linear3"
+                android:background="@drawable/button_border_grey"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:text="Extra Products"
+                    android:textColor="@color/white"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    android:background="@color/grey1"
+                    android:gravity="center"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/selectedExtraRecycler"

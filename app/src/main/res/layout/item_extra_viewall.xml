@@ -21,47 +21,26 @@
             android:padding="5dp">
 
             <TextView
-                android:id="@+id/txtClothName"
+                android:id="@+id/txtProdctName"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
-                android:text="Shirt Normal"
+                android:text="Sample"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 android:gravity="center"/>
 
             <TextView
-                android:id="@+id/txtQty"
+                android:id="@+id/txtPriceForExtra"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:textColor="@color/red"
                 android:textSize="15sp"
-                android:text="(Qty:1)"
+                android:text="(₹40)"
                 android:textStyle="normal"
                 android:layout_gravity="center"
                 android:gravity="center" />
-
-            <ImageView
-                android:id="@+id/imgUrl"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/android"
-                android:adjustViewBounds="true"
-                android:layout_gravity="center"/>
-
-            <TextView
-                android:id="@+id/txtWashType"
-                android:layout_width="match_parent"
-                android:layout_height="25dp"
-                android:textColor="@color/black"
-                android:background="@color/tintlightgrey"
-                android:textSize="15sp"
-                android:text="Dryclean"
-                android:textStyle="normal"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_margin="5dp"/>
 
         </LinearLayout>
 

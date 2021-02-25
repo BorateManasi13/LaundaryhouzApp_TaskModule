@@ -2,6 +2,7 @@ package com.example.testapp5.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,16 +72,6 @@ public class KgFragment extends Fragment implements View.OnClickListener
 
         order_id="ORD21488";
 
-        /*ProductName = getArguments().getString("ProductName");
-        Log.d("TAG","ProductName = " + ProductName);
-        ProductPrice = getArguments().getString("ProductPrice");
-        Log.d("TAG","ProductPrice = " + ProductPrice);
-
-        ExtraProduct extraProduct = new ExtraProduct();
-        extraProduct.setProductName(ProductName);
-        extraProduct.setProductPrice(ProductPrice);
-        extraProductArrayList.add(extraProduct);*/
-
         btnSelectGarments = view.findViewById(R.id.btnSelectGarments);
         btnSelectGarments.setOnClickListener(this);
 
@@ -112,33 +105,50 @@ public class KgFragment extends Fragment implements View.OnClickListener
                     status = object.getString("status");
                     message = object.getString("message");
 
-                    JSONArray jsonArray = object.getJSONArray("data");
-                    Log.d("TAG","length = " + jsonArray.length());
-                    for (int i = 0 ; i < jsonArray.length() ; i++)
+                    if(status.equals("1"))
                     {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONArray jsonArray = object.getJSONArray("data");
+                        Log.d("TAG","length = " + jsonArray.length());
+                        for (int i = 0 ; i < jsonArray.length() ; i++)
+                        {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        chargeid = jsonObject.getString("chargeid");
-                        Log.d("TAG","chargeid = " + chargeid);
+                            chargeid = jsonObject.getString("chargeid");
+                            Log.d("TAG","chargeid = " + chargeid);
 
-                        name = jsonObject.getString("name");
-                        Log.d("TAG","name = " + name);
+                            name = jsonObject.getString("name");
+                            Log.d("TAG","name = " + name);
 
-                        short_name = jsonObject.getString("short_name");
-                        Log.d("TAG","short_name = " + short_name);
+                            short_name = jsonObject.getString("short_name");
+                            Log.d("TAG","short_name = " + short_name);
 
-                        charges = jsonObject.getString("charges");
-                        Log.d("TAG","charges = " + charges);
+                            charges = jsonObject.getString("charges");
+                            Log.d("TAG","charges = " + charges);
 
-                        KgButton button = new KgButton();
-                        button.setName(name);
+                            KgButton button = new KgButton();
+                            button.setName(name);
 
-                        kgButtonArrayList.add(button);
+                            kgButtonArrayList.add(button);
+                        }
+
+                        kgButtonAdapter=new KgButtonAdapter(kgButtonArrayList,getActivity());
+                        kgRecycler.setAdapter(kgButtonAdapter);
+                        kgButtonAdapter.notifyDataSetChanged();
                     }
-
-                    kgButtonAdapter=new KgButtonAdapter(kgButtonArrayList,getActivity());
-                    kgRecycler.setAdapter(kgButtonAdapter);
-                    kgButtonAdapter.notifyDataSetChanged();
+                    else
+                    {
+                        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+                        /*AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                        alertDialog.setTitle("Error");
+                        alertDialog.setMessage(message);
+                        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                        alertDialog.show();*/
+                    }
                 }
                 catch (Exception ex)
                 {

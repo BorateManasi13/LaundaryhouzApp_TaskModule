@@ -71,6 +71,7 @@ public class NewBookingFragment extends Fragment
 
         viewPager = view.findViewById(R.id.viewpager);
 
+        //String tag = makeFragmentName(viewPager.getId(), getItemId(position));
         //Creating our pager adapter
         BookingPagerAdapter adapter = new BookingPagerAdapter(getActivity().getSupportFragmentManager(),0,tabLayout.getTabCount());
 

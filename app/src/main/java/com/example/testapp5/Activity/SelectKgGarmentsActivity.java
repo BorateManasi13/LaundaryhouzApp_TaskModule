@@ -120,7 +120,15 @@ public class SelectKgGarmentsActivity extends AppCompatActivity implements OnIma
             @Override
             public void onClick(View view)
             {
-                if(listSelectedClothe.size() != 0)
+                Intent i = new Intent(getApplicationContext(),GarmentSelectionTypeActivity.class);
+                Log.d(TAG, "calculatedTotalQty = " + calculatedTotalQty);
+                i.putExtra("calculatedTotalQty", calculatedTotalQty);
+
+                editor.putString("order_id",order_id);
+                editor.commit();
+
+                startActivity(i);
+                /*if(listSelectedClothe.size() != 0)
                 {
                     Intent i = new Intent(getApplicationContext(),GarmentSelectionTypeActivity.class);
                     Log.d(TAG, "calculatedTotalQty = " + calculatedTotalQty);
@@ -130,7 +138,7 @@ public class SelectKgGarmentsActivity extends AppCompatActivity implements OnIma
                     editor.commit();
 
                     startActivity(i);
-                }
+                }*/
                 //finish();
             }
         });

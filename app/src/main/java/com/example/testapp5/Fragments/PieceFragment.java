@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -98,32 +99,39 @@ public class PieceFragment extends Fragment implements View.OnClickListener
                     status = object.getString("status");
                     message = object.getString("message");
 
-                    JSONArray jsonArray = object.getJSONArray("data");
-                    Log.d(TAG,"length = " + jsonArray.length());
-                    for (int i = 0 ; i < jsonArray.length() ; i++)
+                    if(status.equals("1"))
                     {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        JSONArray jsonArray = object.getJSONArray("data");
+                        Log.d(TAG,"length = " + jsonArray.length());
+                        for (int i = 0 ; i < jsonArray.length() ; i++)
+                        {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        tbl_washtype_id = jsonObject.getString("tbl_washtype_id");
-                        Log.d(TAG,"tbl_washtype_id = " + tbl_washtype_id);
+                            tbl_washtype_id = jsonObject.getString("tbl_washtype_id");
+                            Log.d(TAG,"tbl_washtype_id = " + tbl_washtype_id);
 
-                        name = jsonObject.getString("name");
-                        Log.d(TAG,"name = " + name);
+                            name = jsonObject.getString("name");
+                            Log.d(TAG,"name = " + name);
 
-                        short_name = jsonObject.getString("short_name");
-                        Log.d(TAG,"short_name = " + short_name);
+                            short_name = jsonObject.getString("short_name");
+                            Log.d(TAG,"short_name = " + short_name);
 
-                        PieceButtons pieceButtons = new PieceButtons();
-                        pieceButtons.setName(name);
-                        pieceButtons.setTbl_washtype_id(tbl_washtype_id);
-                        pieceButtons.setShort_name(short_name);
+                            PieceButtons pieceButtons = new PieceButtons();
+                            pieceButtons.setName(name);
+                            pieceButtons.setTbl_washtype_id(tbl_washtype_id);
+                            pieceButtons.setShort_name(short_name);
 
-                        pieceButtonsArrayList.add(pieceButtons);
+                            pieceButtonsArrayList.add(pieceButtons);
+                        }
+
+                        pieceButtonAdapter=new PieceButtonAdapter(pieceButtonsArrayList,getActivity());
+                        pieceRecycler.setAdapter(pieceButtonAdapter);
+                        pieceButtonAdapter.notifyDataSetChanged();
                     }
-
-                    pieceButtonAdapter=new PieceButtonAdapter(pieceButtonsArrayList,getActivity());
-                    pieceRecycler.setAdapter(pieceButtonAdapter);
-                    pieceButtonAdapter.notifyDataSetChanged();
+                    else
+                    {
+                        Toast.makeText(getActivity(),message,Toast.LENGTH_SHORT).show();
+                    }
                 }
                 catch (Exception ex)
                 {

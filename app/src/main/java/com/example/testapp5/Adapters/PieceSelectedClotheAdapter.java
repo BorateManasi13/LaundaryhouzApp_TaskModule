@@ -46,7 +46,7 @@ public class PieceSelectedClotheAdapter extends RecyclerView.Adapter<PieceSelect
         SelectedClothe selectedClothe = selectedClotheList.get(position);
 
         holder.txtCharges.setText(selectedClotheList.get(position).getCharges());
-        Log.d("TAG","charges == " + selectedClotheList.get(position).getCharges());
+        //Log.d("TAG","charges == " + selectedClotheList.get(position).getCharges());
 
         Glide.with(context)
                 .load(selectedClothe.getClotheImg())
@@ -54,11 +54,11 @@ public class PieceSelectedClotheAdapter extends RecyclerView.Adapter<PieceSelect
 
         selectedClotheList.get(position).setQuantity("1");
 
-        totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
-        Log.d("TAG", "totalItemPrice 1 = " + totalItemPrice);
+        /*totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
+        Log.d("TAG", "totalItemPrice 1 = " + totalItemPrice);*/
 
         holder.txtQuantity.setText(selectedClotheList.get(position).getQuantity());
-        mCallback.onClick(String.valueOf(getTotalQuantity()), String.valueOf(grandTotal()));
+        mCallback.onClick(String.valueOf(getTotalQuantity()));
 
         holder.imgadd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,11 +68,13 @@ public class PieceSelectedClotheAdapter extends RecyclerView.Adapter<PieceSelect
                 count++;
                 selectedClotheList.get(position).setQuantity("" + count);
 
-                totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
-                Log.d("TAG", "totalItemPrice add click = " + totalItemPrice);
+                /*totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
+                Log.d("TAG", "totalItemPrice add click = " + totalItemPrice);*/
+
+                totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getCharges()) + count;
 
                 holder.txtQuantity.setText(selectedClotheList.get(position).getQuantity());
-                mCallback.onClick(String.valueOf(getTotalQuantity()), String.valueOf(grandTotal()));
+                mCallback.onClick(String.valueOf(getTotalQuantity()));
             }
         });
 
@@ -85,23 +87,26 @@ public class PieceSelectedClotheAdapter extends RecyclerView.Adapter<PieceSelect
                 if (count == 1)
                 {
                     selectedClotheList.get(position).setQuantity("" + count);
-
-                    totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
-                    Log.d("TAG", "totalItemPrice minus click = " + totalItemPrice);
-
                     holder.txtQuantity.setText(selectedClotheList.get(position).getQuantity());
-                    mCallback.onClick(String.valueOf(getTotalQuantity()), String.valueOf(grandTotal()));
+
+                    //remove item from list
+                    removeAt(position);
+
+                    /*totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
+                    Log.d("TAG", "totalItemPrice minus click = " + totalItemPrice);*/
+
+                    mCallback.onClick(String.valueOf(getTotalQuantity()));
                 }
                 else
                 {
                     count -= 1;
                     selectedClotheList.get(position).setQuantity("" + count);
 
-                    totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
-                    Log.d("TAG", "totalItemPrice minus click = " + totalItemPrice);
+                    /*totalItemPrice = Integer.parseInt(selectedClotheList.get(position).getQuantity()) * Integer.parseInt(selectedClotheList.get(position).getCharges());
+                    Log.d("TAG", "totalItemPrice minus click = " + totalItemPrice);*/
 
                     holder.txtQuantity.setText(selectedClotheList.get(position).getQuantity());
-                    mCallback.onClick(String.valueOf(getTotalQuantity()), String.valueOf(grandTotal()));
+                    mCallback.onClick(String.valueOf(getTotalQuantity()));
                 }
             }
         });
@@ -131,6 +136,13 @@ public class PieceSelectedClotheAdapter extends RecyclerView.Adapter<PieceSelect
             txtCharges.setVisibility(View.VISIBLE);
         }
     }
+    public void removeAt(int position)
+    {
+        selectedClotheList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, selectedClotheList.size());
+    }
+
 
     /*get total quantity on increment/decrement click*/
     public int getTotalQuantity()
@@ -146,7 +158,7 @@ public class PieceSelectedClotheAdapter extends RecyclerView.Adapter<PieceSelect
         return totalQuantity;
     }
 
-    private int grandTotal()
+    /*private int grandTotal()
     {
         int totalPrice = 0;
         for(int i = 0 ; i < selectedClotheList.size(); i++)
@@ -155,5 +167,5 @@ public class PieceSelectedClotheAdapter extends RecyclerView.Adapter<PieceSelect
         }
 
         return totalPrice;
-    }
+    }*/
 }

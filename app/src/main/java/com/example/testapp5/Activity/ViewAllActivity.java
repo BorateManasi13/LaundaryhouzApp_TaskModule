@@ -132,40 +132,40 @@ public class ViewAllActivity extends AppCompatActivity
                         JSONObject objectData = jsonObject.getJSONObject("data");
                         for (int i = 0; i < objectData.length() ; i++)
                         {
-                            JSONArray jsonArray = objectData.getJSONArray("kg_data");
-                            for (int i1 = 0; i1 < jsonArray.length(); i1++)
-                            {
-                                JSONObject kgObject = jsonArray.getJSONObject(i1);
-                                qty = kgObject.getString("qty");
-                                clothe_name = kgObject.getString("clothe_name");
-                                img_url = kgObject.getString("img_url");
-                                wash_type = kgObject.getString("wash_type");
-                                washtypeid = kgObject.getString("washtypeid");
+                             JSONArray jsonArray = objectData.getJSONArray("kg_data");
+                             for(int i1 = 0 ; i1 < jsonArray.length() ; i1++)
+                             {
+                                 JSONObject kgObject = jsonArray.getJSONObject(i1);
+                                 qty = kgObject.getString("qty");
+                                 clothe_name = kgObject.getString("clothe_name");
+                                 img_url = kgObject.getString("img_url");
+                                 wash_type = kgObject.getString("wash_type");
+                                 washtypeid = kgObject.getString("washtypeid");
 
-                                KgViewAllData kgViewAllData = new KgViewAllData();
-                                kgViewAllData.setClothe_name(clothe_name);
-                                kgViewAllData.setQty(qty);
-                                kgViewAllData.setWashtypeid(washtypeid);
-                                kgViewAllData.setImg_url(img_url);
-                                kgViewAllData.setWash_type(wash_type);
+                                 KgViewAllData kgViewAllData = new KgViewAllData();
+                                 kgViewAllData.setQty(qty);
+                                 kgViewAllData.setClothe_name(clothe_name);
+                                 kgViewAllData.setImg_url(img_url);
+                                 kgViewAllData.setWash_type(wash_type);
+                                 kgViewAllData.setWashtypeid(washtypeid);
 
-                                kgViewAllDataList.add(kgViewAllData);
-                            }
+                                 kgViewAllDataList.add(kgViewAllData);
+                             }
 
-                            JSONArray jsonArray1 = objectData.getJSONArray("piece_data");
-                            for (int i2 = 0; i2 < jsonArray1.length() ; i2++)
-                            {
-                                JSONObject pieceObject = jsonArray1.getJSONObject(i2);
-                                PieceViewAllData pieceViewAllData = new PieceViewAllData();
-                                pieceViewAllData.setQty(pieceObject.getString("qty"));
-                                pieceViewAllData.setRate(pieceObject.getString("rate"));
-                                pieceViewAllData.setClothe_name(pieceObject.getString("clothe_name"));
-                                pieceViewAllData.setImg_url(pieceObject.getString("img_url"));
-                                pieceViewAllData.setWash_type(pieceObject.getString("wash_type"));
-                                pieceViewAllData.setWashtypeid(pieceObject.getString("washtypeid"));
+                             JSONArray jsonArray1 = objectData.getJSONArray("piece_data");
+                             for (int i2 = 0 ; i2 < jsonArray1.length() ; i2++)
+                             {
+                                 JSONObject pieceObject = jsonArray1.getJSONObject(i2);
+                                 PieceViewAllData pieceViewAllData = new PieceViewAllData();
+                                 pieceViewAllData.setQty(pieceObject.getString("qty"));
+                                 pieceViewAllData.setRate(pieceObject.getString("rate"));
+                                 pieceViewAllData.setClothe_name(pieceObject.getString("clothe_name"));
+                                 pieceViewAllData.setImg_url(pieceObject.getString("img_url"));
+                                 pieceViewAllData.setWash_type(pieceObject.getString("wash_type"));
+                                 pieceViewAllData.setWashtypeid(pieceObject.getString("washtypeid"));
 
-                                pieceViewAllDataList.add(pieceViewAllData);
-                            }
+                                 pieceViewAllDataList.add(pieceViewAllData);
+                             }
 
                             JSONArray jsonArray2 = objectData.getJSONArray("extra_prd_data");
                             for(int i3 = 0 ; i3 < jsonArray2.length() ; i3++)

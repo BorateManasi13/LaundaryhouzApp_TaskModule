@@ -139,7 +139,6 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
 
                     startActivity(i);
                 }
-                //finish();
             }
         });
     }
@@ -257,20 +256,16 @@ public class SelectPieceGarmentsActivity extends AppCompatActivity implements On
         }
 
         selectedRecycler.setAdapter(selectedClotheAdapter);
-        selectedClotheAdapter.notifyDataSetChanged();
+        //selectedClotheAdapter.notifyDataSetChanged();
     }
 
 
     @Override
-    public void onClick(String totalqty, String totalprice)
+    public void onClick(String totalqty)
     {
         Log.d(TAG,"totalqty = " + totalqty);
-        Log.d(TAG,"totalcalculatedprice = " + totalprice);
 
         calculatedTotalQty = Integer.parseInt(totalqty);
         Log.d(TAG,"calculatedTotalQty = " + calculatedTotalQty);
-
-        //calculatedTotalPrice = Integer.parseInt(totalcalculatedprice);
-        //Log.d(TAG,"calculatedTotalPrice = " + calculatedTotalPrice);
     }
 }
